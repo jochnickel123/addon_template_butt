@@ -1,4 +1,3 @@
--- MAKE SURE TO RETURN FALSE OR TRUE :)
 
 -- Filters allow you to do some code on specific events.
 -- Whats special about it: you can manipulate some values here.
@@ -16,6 +15,7 @@
 -- Filters:Get<<NAME>>Filters() returns {..}
 -- -> returns all Filter labels of a type
 
+-- return false or return nil if you want to disallow this event.
 
 Filters:AbilityTuningValueFilter(function(event)
 	-- called on most abilities for each value
@@ -31,7 +31,7 @@ Filters:AbilityTuningValueFilter(function(event)
 	return true
 end)
 	
-Filters:BountyRunePickupFilter(1,"demoBauntiFilter",function(event) -- orderNumber and label are optional
+Filters:BountyRunePickupFilter(1,"demoBauntiFilter",function(event) -- orderNumber or label are optional
 	-- PrintTable(event)
 	local playerID = event.player_id_const
 	local xp = event.xp_bounty -- can not get modified with local
