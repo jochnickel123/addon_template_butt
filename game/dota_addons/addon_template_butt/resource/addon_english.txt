@@ -4,7 +4,7 @@
 	"Tokens"
 	{		
 		"addon_game_name"						"Dota 2 But A Template"
-		// "npc_dota_hero_bane" "Banana
+		// "npc_dota_hero_bane" "Banana"
 
 		"DOTA_Tooltip_examplemodifier"							"Useless Modifier"
 		"DOTA_Tooltip_examplemodifier_description"				"Useless number: %dMODIFIER_PROPERTY_TOOLTIP%"
