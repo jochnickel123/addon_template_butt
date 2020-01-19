@@ -1,45 +1,13 @@
 exampleability = class({})
 
 function exampleability:OnSpellStart()
-	--this is where the ability actually happens
-
-	--reading the values from the kv file
-	local radius = self:GetSpecialValueFor( "damage_radius" )
-	local dmg = self:GetSpecialValueFor( "self_damage" )
-	local dur = self:GetSpecialValueFor("duration")
-	local initls = self:GetSpecialValueFor("ls_start")
-
-	-- when we start the spell, look for units (heroes and creeps) nearby, and deal damage
-	local units = FindUnitsInRadius( self:GetCaster():GetTeamNumber(), self:GetCaster():GetOrigin(), self:GetCaster(), radius, DOTA_UNIT_TARGET_TEAM_BOTH, DOTA_UNIT_TARGET_HERO + DOTA_UNIT_TARGET_BASIC, 0, 0, false )
-	for u,unit in pairs(units) do
-		local dmgtype = nil
-		if (self:GetCaster()==unit) then
-			-- deal pure damage to yourself
-			dmgtype = DAMAGE_TYPE_PURE
-		else
-			-- and magical damage to everyone else
-			dmgtype = DAMAGE_TYPE_MAGICAL
-		end
-
-		-- the damage parameter for each unit
-		local tabel = {
-						victim = unit,
-						attacker = self:GetCaster(),
-						damage = dmg,
-						damage_type = dmgtype,
-						damage_flags = DOTA_DAMAGE_FLAG_NON_LETHAL, -- Optional, more can be added with + .. No flags = 0.
-						ability = self	-- Optional, but we have an ability here (=self)
-					}
-		ApplyDamage( tabel ) -- deal damage
-	end
-
-	-- now we add a modifier to the caster, that makes him have lifesteal for some time
-	self:GetCaster():AddNewModifier(
-						self:GetCaster(), -- handle caster,
-						self, -- handle optionalSourceAbility,
-						"exampleabilitymodifier", -- string modifierName,
-						{ duration = dur, lifesteal = initls } -- handle modifierData)
-	)
+	local waiter = false
+	GameRules:GetGameModeEntity():SetThink(function()
+			waiter = true
+	end, 1)
+	repeat
+		local useless = false
+	until (true==waiter)
 end
 
 
